@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WebAppCliente.Models.ClienteViewModel>
+
+<h2>Clientes</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <div class="pull-left">
+                <a asp-action="NovoCliente" class="btn btn-primary">
+                     Incluir Cliente
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel panel-default">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeMae)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Endereco)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Idade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sexo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstadoCivil)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeMae)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Endereco)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Idade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sexo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoCivil)
+                    </td>
+                    <td>
+                        <a asp-action="AtualizarCliente" asp-route-id="@item.Id" title="Editar" class="btn btn-warning">
+                            Editar
+                        </a>
+                        <a asp-action="DeletarCliente" asp-route-id="@item.Id" title="Deletar" class="btn btn-danger">
+                           Deletar
+                        </a>
+                        <a asp-action="DetalhesCliente" asp-route-id="@item.Id" title="Detalhes" class="btn btn-success">
+                            Detalhe
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
