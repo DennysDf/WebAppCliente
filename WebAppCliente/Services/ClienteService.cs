@@ -8,10 +8,9 @@ namespace WebAppCliente.Services
 {
     public class ClienteService : IClienteService
     {
-        private const string apiEndpoint = "/cliente";
+        private const string apiEndpoint = "/objects/";
         private readonly JsonSerializerOptions _options;
         private readonly IHttpClientFactory _clientFactory;
-        private ClienteViewModel clienteViewModel;
         private IEnumerable<ClienteViewModel> clientesViewModel;
         public ClienteService(IHttpClientFactory clientFactory)
         {
@@ -21,9 +20,9 @@ namespace WebAppCliente.Services
 
         public async Task<IEnumerable<ClienteViewModel>> GetClientes(string token)
         {
-            var client = _clientFactory.CreateClient("ClienteAPI");
+            var client = _clientFactory.CreateClient("DeviceAPI");
             PutTokenInHeaderAuthorization(token, client);
-            using (var response = await client.GetAsync($"{apiEndpoint}/Obter"))
+            using (var response = await client.GetAsync($"{apiEndpoint}"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -41,24 +40,24 @@ namespace WebAppCliente.Services
         }
         public async Task<ClienteViewModel> GetClientePorId(int id, string token)
         {
-            var client = _clientFactory.CreateClient("ClienteAPI");
-            PutTokenInHeaderAuthorization(token, client);
-            using (var response = await client.GetAsync($"{apiEndpoint}/Obter/{id}"))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    clienteViewModel = await JsonSerializer
-                                  .DeserializeAsync<ClienteViewModel>
-                                  (apiResponse, _options);
+            //    var client = _clientFactory.CreateClient("ClienteAPI");
+            //    PutTokenInHeaderAuthorization(token, client);
+            //    using (var response = await client.GetAsync($"{apiEndpoint}/Obter/{id}"))
+            //    {
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            var apiResponse = await response.Content.ReadAsStreamAsync();
+            //            clienteViewModel = await JsonSerializer
+            //                          .DeserializeAsync<ClienteViewModel>
+            //                          (apiResponse, _options);
 
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            return clienteViewModel;
+            //        }
+            //        else
+            //        {
+            //            return null;
+            //        }
+            //    }
+            return null;
         }
         public async Task<ClienteViewModel> CriaCliente(ClienteViewModel ClienteVM, string token)
         {

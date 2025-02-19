@@ -7,15 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient("ClienteAPI", x => 
+builder.Services.AddHttpClient("DeviceAPI", x => 
 {
-    x.BaseAddress = new Uri(builder.Configuration["ServiceUri:ClienteAPI"]);
+    x.BaseAddress = new Uri(builder.Configuration["ServiceUri:DeviceAPI"]);
     x.DefaultRequestHeaders.Accept.Clear();
     x.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 });
 
-builder.Services.AddScoped<IClienteService, ClienteService>();
-builder.Services.AddScoped<IAutenticacao, Autenticacao>();
+builder.Services.AddScoped<IDeviceService, DeviceService>();
 
 var app = builder.Build();
 
@@ -36,6 +35,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Login}");
+    pattern: "{controller=Devices}/{action=Index}");
 
 app.Run();
